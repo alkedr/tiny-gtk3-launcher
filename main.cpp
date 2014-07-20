@@ -64,7 +64,7 @@ static std::string makeMatchesBold(std::string appName, std::string query) {
 }
 
 static bool isMatch(std::string appName, std::string query, std::string appNameWithBoldMatches) {
-	return appNameWithBoldMatches.size() == (appName.size() + 7*query.size());
+	return query.empty() || (appNameWithBoldMatches.size() == (appName.size() + 7*query.size()));
 }
 
 static bool isMatch(std::string appName, std::string query) {
@@ -154,6 +154,7 @@ int main(int argc, char *argv[]) {
 		gtk_tree_view_column_new_with_attributes("", gtk_cell_renderer_text_new(), "text", 2, NULL)
 	);
 
+	onSearchEntryChanged(GTK_EDITABLE(searchEntry), store);
 
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 

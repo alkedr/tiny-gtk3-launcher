@@ -139,20 +139,19 @@ int main(int argc, char *argv[]) {
 
 	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(searchResults)), GTK_SELECTION_NONE);
 
-	gtk_tree_view_append_column(
-		GTK_TREE_VIEW(searchResults),
-		gtk_tree_view_column_new_with_attributes("#", gtk_cell_renderer_text_new(), "text", 0, NULL)
-	);
 
-	gtk_tree_view_append_column(
-		GTK_TREE_VIEW(searchResults),
-		gtk_tree_view_column_new_with_attributes("Name", gtk_cell_renderer_text_new(), "markup", 1, NULL)
-	);
+	auto column = gtk_tree_view_column_new_with_attributes("#", gtk_cell_renderer_text_new(), "text", 0, NULL);
+	gtk_tree_view_column_set_expand(column, FALSE);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(searchResults), column);
 
-	gtk_tree_view_append_column(
-		GTK_TREE_VIEW(searchResults),
-		gtk_tree_view_column_new_with_attributes("", gtk_cell_renderer_text_new(), "text", 2, NULL)
-	);
+	column = gtk_tree_view_column_new_with_attributes("Name", gtk_cell_renderer_text_new(), "markup", 1, NULL);
+	gtk_tree_view_column_set_expand(column, TRUE);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(searchResults), column);
+
+	column = gtk_tree_view_column_new_with_attributes("", gtk_cell_renderer_text_new(), "text", 2, NULL);
+	gtk_tree_view_column_set_expand(column, FALSE);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(searchResults), column);
+
 
 	onSearchEntryChanged(GTK_EDITABLE(searchEntry), store);
 
